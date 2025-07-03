@@ -1,11 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/comida.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ComidaService {
-  final String baseUrl = 'http://192.168.0.20:8080/api/comida'; // Cambia según tu entorno
+  // Usar un getter para leer la variable de entorno en tiempo de ejecución
+  String get baseUrl => dotenv.env['API_BASE_URL'] ?? 'http://localhost:8080';
 
-  // 🔍 Obtener la lista de comidas
+  // Obtener la lista de comidas
   Future<List<Comida>> listar() async {
     try {
       final response = await http.get(Uri.parse('$baseUrl/listar'));
@@ -20,8 +22,7 @@ class ComidaService {
     }
   }
 
-
-  // 📝 Actualizar comida
+  // Actualizar comida
   Future<void> actualizar(Comida comida) async {
     try {
       final response = await http.put(
@@ -37,7 +38,7 @@ class ComidaService {
     }
   }
 
-  // ❌ Eliminar comida
+  // Eliminar comida
   Future<void> eliminar(int id) async {
     try {
       final response = await http.post(Uri.parse('$baseUrl/eliminar/$id'));

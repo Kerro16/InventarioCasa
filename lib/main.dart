@@ -6,8 +6,10 @@ import 'pages/comida_list_page.dart';
 import 'pages/agregar_comida_page.dart';
 import 'pages/editar_comida_page.dart';
 import 'pages/categorias_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
